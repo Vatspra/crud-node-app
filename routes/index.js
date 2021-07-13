@@ -36,7 +36,7 @@ router.post('/', upload.single('avatar'), async (req, res) => {
       });
     } else {
       const avatar = req.file && req.file.filename;
-      const userObj = { fname, lname, email, avatar }
+      const userObj = { fname, lname, email, avatar, phone }
       const user = await User.create(userObj);
       // userObj.id = user.id
       // await user.save();
@@ -124,7 +124,7 @@ router.get('/file/:id', async (req, res) => {
     res.status(200).json({ file: `data:image/png;base64,${contents}` });
   } catch (err) {
     console.log(error);
-    res.status(400).json({ err: 'something went wrong' });
+    res.status(400).json({ err: error._message || 'something went wrong' });
   }
 });
 
